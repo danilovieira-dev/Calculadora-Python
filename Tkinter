@@ -1,0 +1,88 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# Função para realizar os cálculos
+def calcular():
+    try:
+        operacao = entrada.get()
+        resultado = eval(operacao)
+        label_resultado.config(text="Resultado: " + str(resultado))
+    except:
+        messagebox.showerror("Erro", "Expressão Inválida")
+
+# Função para calcular Juros Simples
+def calcular_juros_simples():
+    try:
+        p = float(entrada_principal.get())
+        r = float(entrada_taxa.get()) / 100
+        t = float(entrada_tempo.get())
+        js = p * r * t
+        label_juros_simples_resultado.config(text="Juros Simples: R$ " + str(round(js, 2)))
+    except:
+        messagebox.showerror("Erro", "Entrada Inválida para Juros Simples")
+
+# Função para calcular Juros Compostos
+def calcular_juros_compostos():
+    try:
+        p = float(entrada_principal.get())
+        r = float(entrada_taxa.get()) / 100
+        t = float(entrada_tempo.get())
+        jc = p * ((1 + r) ** t - 1)
+        label_juros_compostos_resultado.config(text="Juros Compostos: R$ " + str(round(jc, 2)))
+    except:
+        messagebox.showerror("Erro", "Entrada Inválida para Juros Compostos")
+
+# Configuração da janela principal
+janela = tk.Tk()
+janela.title("Calculadora Básica e Juros")
+janela.geometry("400x400")
+
+# Interface da calculadora básica
+label_calculadora = tk.Label(janela, text="Calculadora Básica")
+label_calculadora.pack()
+
+entrada = tk.Entry(janela, width=30)
+entrada.pack()
+
+botao_calcular = tk.Button(janela, text="Calcular", command=calcular)
+botao_calcular.pack()
+
+label_resultado = tk.Label(janela, text="Resultado: ")
+label_resultado.pack()
+
+# Interface para calcular Juros Simples e Compostos
+label_juros = tk.Label(janela, text="Cálculo de Juros")
+label_juros.pack(pady=10)
+
+label_principal = tk.Label(janela, text="Principal (R$):")
+label_principal.pack()
+
+entrada_principal = tk.Entry(janela)
+entrada_principal.pack()
+
+label_taxa = tk.Label(janela, text="Taxa de Juros (%):")
+label_taxa.pack()
+
+entrada_taxa = tk.Entry(janela)
+entrada_taxa.pack()
+
+label_tempo = tk.Label(janela, text="Tempo (anos):")
+label_tempo.pack()
+
+entrada_tempo = tk.Entry(janela)
+entrada_tempo.pack()
+
+botao_juros_simples = tk.Button(janela, text="Calcular Juros Simples", command=calcular_juros_simples)
+botao_juros_simples.pack()
+
+label_juros_simples_resultado = tk.Label(janela, text="Juros Simples: ")
+label_juros_simples_resultado.pack()
+
+botao_juros_compostos = tk.Button(janela, text="Calcular Juros Compostos", command=calcular_juros_compostos)
+botao_juros_compostos.pack()
+
+label_juros_compostos_resultado = tk.Label(janela, text="Juros Compostos: ")
+label_juros_compostos_resultado.pack()
+
+# Executa o loop principal da janela
+janela.mainloop()
